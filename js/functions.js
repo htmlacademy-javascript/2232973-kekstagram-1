@@ -15,7 +15,7 @@ function checkPalindrome(string) {
   return stringArray.join('') === stringArrayReversed.join('');
 }
 
-console.log(checkPalindrome('Лёша на полке клопа нашёл'));
+checkPalindrome('Лёша на полке клопа нашёл');
 
 // Функция, которая принимает строку, извлекает содержащиеся в ней цифры от 0 до 9 и возвращает их в виде целого положительного числа.
 // Если в строке нет ни одной цифры, функция должна вернуть NaN:
@@ -42,7 +42,7 @@ function returnNumber(value) {
   return parseInt(result, 10);
 }
 
-console.log(returnNumber(1.5));
+returnNumber(1.5);
 
 // Функция, которая принимает три параметра: исходную строку, минимальную длину и строку с добавочными символами —
 //и возвращает исходную строку, дополненную указанными символами до заданной длины. Символы добавляются в начало строки.
@@ -73,12 +73,12 @@ function addSymbols(string, length, symbols) {
   while (newString.length < neededLength) {
     newString += symbols;
   }
-  newString = newString.slice(0, neededLength)
+  newString = newString.slice(0, neededLength);
 
   return newString + string;
 }
 
-console.log(addSymbols('q', 4, 'werty'))
+addSymbols('q', 4, 'werty');
 
 
 // Функция для проверки длины строки. Она принимает строку, которую нужно проверить,
@@ -92,6 +92,6 @@ console.log(addSymbols('q', 4, 'werty'))
 // // Строка длиннее 10 символов
 // имяФункции('проверяемая строка', 10); // false
 
-let checkStringLength = (str, length) => str.length <= length;
+const checkStringLength = (str, length) => str.length <= length;
 
-console.log(checkStringLength('проверяемая строка', 10))
+checkStringLength('проверяемая строка', 10);
