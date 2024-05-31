@@ -15,8 +15,6 @@ function checkPalindrome(string) {
   return stringArray.join('') === stringArrayReversed.join('');
 }
 
-checkPalindrome('Лёша на полке клопа нашёл');
-
 // Функция, которая принимает строку, извлекает содержащиеся в ней цифры от 0 до 9 и возвращает их в виде целого положительного числа.
 // Если в строке нет ни одной цифры, функция должна вернуть NaN:
 // имяФункции('2023 год');            // 2023
@@ -41,8 +39,6 @@ function returnNumber(value) {
 
   return parseInt(result, 10);
 }
-
-returnNumber(1.5);
 
 // Функция, которая принимает три параметра: исходную строку, минимальную длину и строку с добавочными символами —
 //и возвращает исходную строку, дополненную указанными символами до заданной длины. Символы добавляются в начало строки.
@@ -76,15 +72,12 @@ function addSymbols(startingStr, length, symbols) {
     if (rest >= symbols.length) {
       newString = symbols + newString;
     } else {
-      newString = symbols.slice(0, rest) + newString
+      newString = symbols.slice(0, rest) + newString;
     }
   }
 
   return newString + startingStr;
 }
-
-console.log(addSymbols('q', 4, 'we'));
-
 
 // Функция для проверки длины строки. Она принимает строку, которую нужно проверить,
 // и максимальную длину и возвращает true, если строка меньше или равна указанной длине,
@@ -99,4 +92,4 @@ console.log(addSymbols('q', 4, 'we'));
 
 const checkStringLength = (str, length) => str.length <= length;
 
-checkStringLength('проверяемая строка', 10);
+export { checkPalindrome, returnNumber, addSymbols, checkStringLength };
