@@ -18,6 +18,14 @@ const NAMES = [
   'Вашингтон'
 ];
 
+const LIKES_MIN = 15;
+const LIKES_MAX = 200;
+const COMMENTS_MIN = 0;
+const COMMENTS_MAX = 10;
+const AVATAR_START = 1;
+const AVATAR_END = 6;
+const SIMILAR_CARDS_NUMBER = 25;
+
 function getRandomInteger(min, max) {
   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
   const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
@@ -42,27 +50,24 @@ const generatePhotoId = createIdGenerator();
 const generateCommentId = createIdGenerator();
 const generateURL = createIdGenerator();
 
+const generateComments = () => ({
+  id: generateCommentId(),
+  avatar: `img/avatar-${getRandomInteger(AVATAR_START, AVATAR_END)}.svg`,
+  message: getRandomArrayElement(COMMENTS),
+  name: getRandomArrayElement(NAMES)
+});
+
 const generatePhotoData = () => ({
   id: generatePhotoId(),
   url: `photos/${generateURL()}.jpg`,
   description: 'Описание для фото',
-  likes: getRandomInteger(15, 200),
-  comments: [{
-    id: generateCommentId(),
-    avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-    message: getRandomArrayElement(COMMENTS),
-    name: getRandomArrayElement(NAMES)
-  }, {
-    id: generateCommentId(),
-    avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-    message: getRandomArrayElement(COMMENTS),
-    name: getRandomArrayElement(NAMES)
-  }]
+  likes: getRandomInteger(LIKES_MIN, LIKES_MAX),
+  comments: Array.from({ length: getRandomInteger(COMMENTS_MIN, COMMENTS_MAX) }, generateComments)
 });
 
 const similarCards = Array.from(
-  { length: 25 },
+  { length: SIMILAR_CARDS_NUMBER },
   generatePhotoData
 );
 
-similarCards();
+console.log(similarCards);
