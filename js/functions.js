@@ -64,21 +64,26 @@ returnNumber(1.5);
 // // Добавочные символы не использованы, исходная строка не изменена
 // имяФункции('qwerty', 4, '0'); // 'qwerty'
 
-function addSymbols(string, length, symbols) {
-  if (string.length >= length) {
-    return string;
+function addSymbols(startingStr, length, symbols) {
+  if (startingStr.length >= length) {
+    return startingStr;
   }
-  const neededLength = length - string.length;
+  const neededLength = length - startingStr.length;
   let newString = '';
+  let rest;
   while (newString.length < neededLength) {
-    newString += symbols;
+    rest = neededLength - newString.length;
+    if (rest >= symbols.length) {
+      newString = symbols + newString;
+    } else {
+      newString = symbols.slice(0, rest) + newString
+    }
   }
-  newString = newString.slice(0, neededLength);
 
-  return newString + string;
+  return newString + startingStr;
 }
 
-addSymbols('q', 4, 'werty');
+console.log(addSymbols('q', 4, 'we'));
 
 
 // Функция для проверки длины строки. Она принимает строку, которую нужно проверить,
