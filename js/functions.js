@@ -15,8 +15,6 @@ function checkPalindrome(string) {
   return stringArray.join('') === stringArrayReversed.join('');
 }
 
-checkPalindrome('Лёша на полке клопа нашёл');
-
 // Функция, которая принимает строку, извлекает содержащиеся в ней цифры от 0 до 9 и возвращает их в виде целого положительного числа.
 // Если в строке нет ни одной цифры, функция должна вернуть NaN:
 // имяФункции('2023 год');            // 2023
@@ -42,8 +40,6 @@ function returnNumber(value) {
   return parseInt(result, 10);
 }
 
-returnNumber(1.5);
-
 // Функция, которая принимает три параметра: исходную строку, минимальную длину и строку с добавочными символами —
 //и возвращает исходную строку, дополненную указанными символами до заданной длины. Символы добавляются в начало строки.
 //Если исходная строка превышает заданную длину, она не должна обрезаться. Если «добивка» слишком длинная, она обрезается с конца.
@@ -64,22 +60,24 @@ returnNumber(1.5);
 // // Добавочные символы не использованы, исходная строка не изменена
 // имяФункции('qwerty', 4, '0'); // 'qwerty'
 
-function addSymbols(string, length, symbols) {
-  if (string.length >= length) {
-    return string;
+function addSymbols(startingStr, length, symbols) {
+  if (startingStr.length >= length) {
+    return startingStr;
   }
-  const neededLength = length - string.length;
+  const neededLength = length - startingStr.length;
   let newString = '';
+  let rest;
   while (newString.length < neededLength) {
-    newString += symbols;
+    rest = neededLength - newString.length;
+    if (rest >= symbols.length) {
+      newString = symbols + newString;
+    } else {
+      newString = symbols.slice(0, rest) + newString;
+    }
   }
-  newString = newString.slice(0, neededLength);
 
-  return newString + string;
+  return newString + startingStr;
 }
-
-addSymbols('q', 4, 'werty');
-
 
 // Функция для проверки длины строки. Она принимает строку, которую нужно проверить,
 // и максимальную длину и возвращает true, если строка меньше или равна указанной длине,
@@ -94,4 +92,4 @@ addSymbols('q', 4, 'werty');
 
 const checkStringLength = (str, length) => str.length <= length;
 
-checkStringLength('проверяемая строка', 10);
+export { checkPalindrome, returnNumber, addSymbols, checkStringLength };
