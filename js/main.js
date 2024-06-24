@@ -1,4 +1,4 @@
 import { createCards } from './data.js';
-import { picturesList } from './miniatures.js';
+import { renderThumbnails } from './thumbnails.js';
 
-// console.log(createCards(25));
+renderThumbnails(createCards(25));
