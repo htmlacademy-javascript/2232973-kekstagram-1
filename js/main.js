@@ -1,4 +1,4 @@
-import { similarCards } from './data.js';
+import { createCards } from './data.js';
+import { renderThumbnails } from './thumbnails.js';
 
-console.log(similarCards);
-
+renderThumbnails(createCards(25));

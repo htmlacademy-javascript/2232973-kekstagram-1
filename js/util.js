@@ -1,5 +1,3 @@
-import { checkPalindrome, returnNumber, addSymbols, checkStringLength } from './functions.js';
-
 function getRandomInteger(min, max) {
   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
   const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
@@ -10,6 +8,7 @@ function getRandomInteger(min, max) {
 
 const getRandomArrayElement = (elements) =>
   elements[getRandomInteger(0, elements.length - 1)];
+
 
 const createIdGenerator = () => {
   let lastGeneratedId = 0;
