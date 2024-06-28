@@ -23,4 +23,6 @@ const generatePhotoId = createIdGenerator();
 const generateCommentId = createIdGenerator();
 const generateURL = createIdGenerator();
 
-export {getRandomInteger, getRandomArrayElement, generatePhotoId, generateCommentId, generateURL};
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomInteger, getRandomArrayElement, generatePhotoId, generateCommentId, generateURL, isEscapeKey};
