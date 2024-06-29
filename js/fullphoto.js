@@ -11,13 +11,6 @@ const commentItem = commentsBlock.querySelector('.social__comment');
 const commentsShowMore = document.querySelector('.comments-loader');
 const closePhotoButton = document.querySelector('#picture-cancel');
 
-const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeFullPhoto();
-  }
-};
-
 const renderFullPhoto = ({ url, likes, comments, description }) => {
   document.querySelector('body').classList.add('modal-open');
   cardImage.src = url;
@@ -51,5 +44,12 @@ const closeFullPhoto = () => {
 closePhotoButton.addEventListener('click', () => {
   closeFullPhoto();
 });
+
+function onDocumentKeydown(evt) {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeFullPhoto();
+  }
+}
 
 export { renderFullPhoto };

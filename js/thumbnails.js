@@ -1,29 +1,25 @@
-import { renderFullPhoto } from './fullphoto.js';
-
-const picturesList = document.querySelector('.pictures');
 const pictureCardTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
 
 const createThumbnail = (picture) => {
-  const {url, likes, comments} = picture;
+  const {id, url, likes, comments} = picture;
   const thumbnail = pictureCardTemplate.cloneNode(true);
   thumbnail.querySelector('.picture__img').src = url;
   thumbnail.querySelector('.picture__likes').textContent = likes;
   thumbnail.querySelector('.picture__comments').textContent = comments.length;
-  thumbnail.addEventListener('click', () => {
-    renderFullPhoto(picture);
-  });
+  thumbnail.dataset.id = id;
+
   return thumbnail;
 };
 
-const renderThumbnails = (pictures) => {
+const renderThumbnails = (pictures, container) => {
   const picturesListFragment = document.createDocumentFragment();
   pictures.forEach((picture) => {
     const thumbnail = createThumbnail(picture);
     picturesListFragment.appendChild(thumbnail);
   });
-  picturesList.appendChild(picturesListFragment);
+  container.appendChild(picturesListFragment);
 };
 
-export {renderThumbnails, picturesList};
+export {renderThumbnails};
