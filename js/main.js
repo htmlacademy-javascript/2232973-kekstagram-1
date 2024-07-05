@@ -1,6 +1,5 @@
 import { createCards } from './data.js';
-import { renderThumbnails } from './thumbnails.js';
-import './fullphoto.js';
+import { renderGallery } from './gallery.js';
 
-renderThumbnails(createCards(25));
+renderGallery(createCards(25));
 
