@@ -1,4 +1,5 @@
 import { isEscapeKey } from './util.js';
+import { COMMENT_MAX_LENGTH, HASHTAGS_MAX } from './constants.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const fileUpload = document.querySelector('#upload-file');
@@ -50,40 +51,33 @@ const pristine = new Pristine(uploadForm, {
 });
 
 function validateComment (value) {
-  return value.length < 141;
+  return value.length <= COMMENT_MAX_LENGTH;
 }
 
 pristine.addValidator(
   photoComment,
   validateComment,
-  'до 140 символов'
+  `до ${COMMENT_MAX_LENGTH} символов`
 );
 
 const validateTags = (value) => {
   const hashtags = value.trim().split(/\s+/);
-  console.log(hashtags)
   const regexp = /^#[a-zа-яё0-9]{1, 19}$/i;
 
   if (hashtags.length === 0) {
     return true;
   }
-  console.log(hashtags, 1)
-  if (hashtags.length > 5) {
+  if (hashtags.length > HASHTAGS_MAX) {
     return false;
   }
-  console.log(hashtags, 2)
 
   for (const hashtag of hashtags) {
-    console.log(hashtag)
     if (!regexp.test(hashtag)) {
-      console.log(hashtag, '  ---   ')
       return false;
     }
   }
 
   const uniqueHashtags = new Set(hashtags);
-  console.log(hashtags)
-  console.log(uniqueHashtags)
   return uniqueHashtags.size === hashtags.length;
 };
 
