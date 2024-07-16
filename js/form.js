@@ -50,55 +50,53 @@ const pristine = new Pristine(uploadForm, {
   errorTextClass: 'form__error'
 });
 
-function validateComment (value) {
-  return value.length <= COMMENT_MAX_LENGTH;
-}
+// function validateComment (value) {
+//   return value.length <= COMMENT_MAX_LENGTH;
+// }
 
 pristine.addValidator(
   photoComment,
-  validateComment,
-  `до ${COMMENT_MAX_LENGTH} символов`
-);
-
-const validateTags = (value) => {
-  const hashtags = value.trim().split(/\s+/);
-  const regexp = /^#[a-zа-яё0-9]{1, 19}$/i;
-
-  if (hashtags.length === 0) {
-    return true;
-  }
-  if (hashtags.length > HASHTAGS_MAX) {
-    return false;
-  }
-
-  for (const hashtag of hashtags) {
-    if (!regexp.test(hashtag)) {
-      return false;
+  (value) => {
+    if (value.length <= COMMENT_MAX_LENGTH) {
+      return true;
     }
-  }
+    return 'слишком длинный коммени';
+  });
 
-  const uniqueHashtags = new Set(hashtags);
-  return uniqueHashtags.size === hashtags.length;
+const hashtagValidations = {
+  startsWithHash: {
+    test: (tag) => tag.startsWith('#'),
+    errorMessage: 'Хэштег должен начинаться с символа #'
+  },
+  validCharacters: {
+    test: (tag) => /^#[a-zа-яё0-9]{1,19}$/i.test(tag),
+    errorMessage: 'Строка после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы и т.д.'
+  },
+  maxLength: {
+    test: (tag) => tag.length <= 20,
+    errorMessage: 'Максимальная длина одного хэш-тега 20 символов, включая решётку'
+  },
+  uniqueTags: {
+    test: (tags) => new Set(tags).size === tags.length,
+    errorMessage: 'Один и тот же хэш-тег не может быть использован дважды'
+  },
+  maxTags: {
+    test: (tags) => tags.length <= HASHTAGS_MAX,
+    errorMessage: 'Нельзя указать больше пяти хэш-тегов'
+  }
 };
 
-pristine.addValidator(
-  tagsField,
-  validateTags,
-  'неверный формат хэштега'
-);
-
-uploadForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+Object.keys(hashtagValidations).forEach((key) => {
+  pristine.addValidator(
+    tagsField,
+    (value) => {
+      const hashtags = value.trim().split(/\s+/).filter((tag) => tag !== '');
+      if (key === 'uniqueTags' || key === 'maxTags') {
+        return hashtagValidations[key].test(hashtags);
+      }
+      return hashtags.every((tag) => hashtagValidations[key].test(tag));
+    },
+    hashtagValidations[key].errorMessage
+  );
 });
 
-// да хэш-тег начинается с символа # (решётка);
-// да строка после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.;
-// да хеш-тег не может состоять только из одной решётки;
-// да максимальная длина одного хэш-тега 20 символов, включая решётку;
-// да хэш-теги нечувствительны к регистру: #ХэшТег и #хэштег считаются одним и тем же тегом;
-// хэш-теги разделяются пробелами;
-// да один и тот же хэш-тег не может быть использован дважды;
-// да нельзя указать больше пяти хэш-тегов;
-
-//onDocumentKeydown сделать универсальным и вынести в утилс?
