@@ -1,22 +1,26 @@
 import { renderFullPhoto } from './fullphoto.js';
 import { renderThumbnails } from './thumbnails.js';
+import './form.js';
 
 const picturesList = document.querySelector('.pictures');
+const localPictures = [];
+
+picturesList.addEventListener('click', (evt) => {
+  const thumbnail = evt.target.closest('.picture');
+  if (!thumbnail) {
+    return;
+  }
+
+  evt.preventDefault();
+  const picture = localPictures.find(
+    (item) => item.id === Number(thumbnail.dataset.id)
+  );
+  renderFullPhoto(picture);
+});
 
 const renderGallery = (pictures) => {
-  picturesList.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    const thumbnail = evt.target.closest('.picture');
-    if (!thumbnail) {
-      return;
-    }
-
-    const picture = pictures.find(
-      (item) => item.id === Number(thumbnail.dataset.id)
-    );
-    renderFullPhoto(picture);
-  });
-
+  localPictures.length = 0;
+  localPictures.push(...pictures.slice());
   renderThumbnails(pictures, picturesList);
 };
 
