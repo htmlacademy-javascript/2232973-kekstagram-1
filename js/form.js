@@ -1,5 +1,6 @@
 import { isEscapeKey } from './util.js';
 import { isValid, resetValidation } from './validation.js';
+import { resetScale } from './scale.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const fileUpload = document.querySelector('#upload-file');
@@ -8,11 +9,11 @@ const closeButton = document.querySelector('#upload-cancel');
 const tagsField = document.querySelector('.text__hashtags');
 const photoComment = document.querySelector('.text__description');
 
-
 fileUpload.addEventListener('change', () => {
   popupUpload.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
+  resetScale();
 });
 
 const resetForm = () => {
