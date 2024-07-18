@@ -32,14 +32,13 @@ closeButton.addEventListener('click', () => {
 });
 
 uploadForm.addEventListener('submit', (evt) => {
-  if(!isValid()){
+  if (!isValid()){
     evt.preventDefault();
   }
 });
 
 function onDocumentKeydown(evt) {
   if (isEscapeKey(evt)) {
-    evt.preventDefault();
     if (document.activeElement === photoComment || document.activeElement === tagsField) {
       return document.activeElement.blur();
     }

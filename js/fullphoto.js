@@ -76,7 +76,6 @@ closePhotoButton.addEventListener('click', () => {
 
 function onDocumentKeydown(evt) {
   if (isEscapeKey(evt)) {
-    evt.preventDefault();
     closeFullPhoto();
   }
 }
