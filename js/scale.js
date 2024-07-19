@@ -16,7 +16,7 @@ const scaleUp = () => {
   if (scaleValue >= SCALE_MAX) {
     return;
   }
-  imgScaleValue.value = (`${scaleValue + SCALE_STEP}%`).toString();
+  imgScaleValue.value = `${scaleValue + SCALE_STEP}%`;
   imgPreview.style.transform = `scale(${(scaleValue + SCALE_STEP) / 100})`;
 };
 
@@ -25,7 +25,7 @@ const scaleDown = () => {
   if (scaleValue <= SCALE_MIN) {
     return;
   }
-  imgScaleValue.value = (`${scaleValue - SCALE_STEP}%`).toString();
+  imgScaleValue.value = `${scaleValue - SCALE_STEP}%`;
   imgPreview.style.transform = `scale(${(scaleValue - SCALE_STEP) / 100})`;
 };
 
