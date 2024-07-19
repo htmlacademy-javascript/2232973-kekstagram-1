@@ -111,8 +111,7 @@ effectsFieldset.addEventListener('change', (evt) => {
   }
 });
 
-sliderElement.noUiSlider.on('update', (values, handle) => {
-  const value = values[handle];
+sliderElement.noUiSlider.on('update', (value) => {
   sliderValueElement.value = value;
   updateFilter(value);
 });
