@@ -15,7 +15,7 @@ const validateComment = (value) => value.length <= COMMENT_MAX_LENGTH;
 pristine.addValidator(
   photoComment,
   validateComment,
-  `до ${COMMENT_MAX_LENGTH} символов`
+  `Не более ${COMMENT_MAX_LENGTH} символов`
 );
 
 const hashtagValidations = {
