@@ -1,6 +1,7 @@
 import { isEscapeKey } from './util.js';
 import { isValid, resetValidation } from './validation.js';
 import { resetScale } from './scale.js';
+import { resetEffects } from './effects.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const fileUpload = document.querySelector('#upload-file');
@@ -14,6 +15,7 @@ fileUpload.addEventListener('change', () => {
   document.querySelector('body').classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
   resetScale();
+  resetEffects();
 });
 
 const resetForm = () => {
