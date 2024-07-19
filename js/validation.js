@@ -45,7 +45,7 @@ Object.keys(hashtagValidations).forEach((key) => {
   pristine.addValidator(
     tagsField,
     (value) => {
-      const hashtags = value.trim().split(/\s+/).filter((tag) => tag !== '');
+      const hashtags = value.trim().toLowerCase().split(/\s+/).filter((tag) => tag !== '');
       if (key === 'uniqueTags' || key === 'maxTags') {
         return hashtagValidations[key].test(hashtags);
       }
