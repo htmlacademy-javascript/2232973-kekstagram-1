@@ -1,3 +1,5 @@
+import {effectSettings} from './constants.js';
+
 const sliderElement = document.querySelector('.effect-level__slider');
 const sliderValueElement = document.querySelector('.effect-level__value');
 const imagePreview = document.querySelector('.img-upload__preview img');
@@ -13,75 +15,6 @@ noUiSlider.create(sliderElement, {
   step: 1,
   connect: 'lower',
 });
-
-const effectSettings = {
-  'none': {
-    class: '',
-    filter: '',
-    sliderOptions: {
-      range: { min: 0, max: 100 },
-      start: 100,
-      step: 1,
-      connect: 'lower',
-    },
-    hidden: true,
-  },
-  'chrome': {
-    class: 'effects__preview--chrome',
-    filter: (value) => `grayscale(${value / 100})`,
-    sliderOptions: {
-      range: { min: 0, max: 100 },
-      start: 100,
-      step: 1,
-      connect: 'lower',
-    },
-    hidden: false,
-  },
-  'sepia': {
-    class: 'effects__preview--sepia',
-    filter: (value) => `sepia(${value / 100})`,
-    sliderOptions: {
-      range: { min: 0, max: 100 },
-      start: 100,
-      step: 1,
-      connect: 'lower',
-    },
-    hidden: false,
-  },
-  'marvin': {
-    class: 'effects__preview--marvin',
-    filter: (value) => `invert(${value}%)`,
-    sliderOptions: {
-      range: { min: 0, max: 100 },
-      start: 100,
-      step: 1,
-      connect: 'lower',
-    },
-    hidden: false,
-  },
-  'phobos': {
-    class: 'effects__preview--phobos',
-    filter: (value) => `blur(${(value * 3) / 100}px)`,
-    sliderOptions: {
-      range: { min: 0, max: 100 },
-      start: 100,
-      step: 1,
-      connect: 'lower',
-    },
-    hidden: false,
-  },
-  'heat': {
-    class: 'effects__preview--heat',
-    filter: (value) => `brightness(${1 + (value * 2) / 100})`,
-    sliderOptions: {
-      range: { min: 0, max: 100 },
-      start: 100,
-      step: 1,
-      connect: 'lower',
-    },
-    hidden: false,
-  },
-};
 
 const updateFilter = (value) => {
   const effect = document.querySelector('.effects__radio:checked').value;
