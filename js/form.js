@@ -10,12 +10,16 @@ const closeButton = document.querySelector('#upload-cancel');
 const tagsField = document.querySelector('.text__hashtags');
 const photoComment = document.querySelector('.text__description');
 
-fileUpload.addEventListener('change', () => {
+const openForm = () => {
   popupUpload.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
   resetScale();
   resetEffects();
+};
+
+fileUpload.addEventListener('change', () => {
+  openForm();
 });
 
 const resetForm = () => {
