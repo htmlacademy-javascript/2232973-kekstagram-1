@@ -1,6 +1,5 @@
 import { renderFullPhoto } from './fullphoto.js';
 import { renderThumbnails } from './thumbnails.js';
-import './form.js';
 
 const picturesList = document.querySelector('.pictures');
 const localPictures = [];
