@@ -14,8 +14,6 @@ const openForm = () => {
   popupUpload.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
-  resetScale();
-  resetEffects();
 };
 
 fileUpload.addEventListener('change', () => {
@@ -25,7 +23,11 @@ fileUpload.addEventListener('change', () => {
 const resetForm = () => {
   uploadForm.reset();
   resetValidation();
+  resetScale();
+  resetEffects();
 };
+
+resetForm();
 
 const closeForm = () => {
   popupUpload.classList.add('hidden');

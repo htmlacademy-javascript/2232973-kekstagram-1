@@ -53,8 +53,6 @@ const resetEffects = () => {
   imagePreview.className = '';
   effectLevelFieldset.classList.add('hidden');
   sliderElement.noUiSlider.updateOptions(effectSettings.none.sliderOptions);
-  sliderElement.noUiSlider.set(effectSettings.none.sliderOptions.start);
-  sliderValueElement.value = effectSettings.none.sliderOptions.start;
 };
 
 export {resetEffects};
