@@ -6,16 +6,16 @@ const imgScaleValue = document.querySelector('.scale__control--value');
 const imgPreview = document.querySelector('.img-upload__preview img');
 
 let currentScale = SCALE_MAX;
-const resetScale = () => {
-  imgScaleValue.value = `${SCALE_MAX}%`;
-  imgPreview.style.transform = `scale(${SCALE_MAX / 100})`;
-  imgPreview.style.filter = 'none';
-  currentScale = SCALE_MAX;
-};
 
 const renderScale = () => {
   imgPreview.style.transform = `scale(${currentScale / 100})`;
   imgScaleValue.value = `${currentScale}%`;
+};
+
+const resetScale = () => {
+  imgPreview.style.filter = 'none';
+  currentScale = SCALE_MAX;
+  renderScale();
 };
 
 const scaleUp = () => {
