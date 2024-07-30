@@ -5,28 +5,26 @@ const imgScaleDown = document.querySelector('.scale__control--smaller');
 const imgScaleValue = document.querySelector('.scale__control--value');
 const imgPreview = document.querySelector('.img-upload__preview img');
 
+let currentScale = SCALE_MAX;
+
+const renderScale = () => {
+  imgPreview.style.transform = `scale(${currentScale / 100})`;
+  imgScaleValue.value = `${currentScale}%`;
+};
+
 const resetScale = () => {
-  imgScaleValue.value = `${SCALE_MAX}%`;
-  imgPreview.style.transform = `scale(${SCALE_MAX / 100})`;
-  imgPreview.style.filter = 'none';
+  currentScale = SCALE_MAX;
+  renderScale();
 };
 
 const scaleUp = () => {
-  const scaleValue = parseInt(imgScaleValue.value, 10);
-  if (scaleValue >= SCALE_MAX) {
-    return;
-  }
-  imgScaleValue.value = `${scaleValue + SCALE_STEP}%`;
-  imgPreview.style.transform = `scale(${(scaleValue + SCALE_STEP) / 100})`;
+  currentScale = currentScale < SCALE_MAX ? currentScale + SCALE_STEP : SCALE_MAX;
+  renderScale();
 };
 
 const scaleDown = () => {
-  const scaleValue = parseInt(imgScaleValue.value, 10);
-  if (scaleValue <= SCALE_MIN) {
-    return;
-  }
-  imgScaleValue.value = `${scaleValue - SCALE_STEP}%`;
-  imgPreview.style.transform = `scale(${(scaleValue - SCALE_STEP) / 100})`;
+  currentScale = currentScale > SCALE_MIN ? currentScale - SCALE_STEP : SCALE_MIN;
+  renderScale();
 };
 
 imgScaleUp.addEventListener('click', scaleUp);

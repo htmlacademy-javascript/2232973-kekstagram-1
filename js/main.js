@@ -1,5 +1,7 @@
-import { createCards } from './data.js';
 import { renderGallery } from './gallery.js';
+import { fetchData } from './fetch-initial-data.js';
+import './form.js';
 
-renderGallery(createCards(25));
-
+fetchData().then((pictures) => {
+  renderGallery(pictures);
+});

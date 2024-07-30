@@ -1,4 +1,4 @@
-import { COMMENT_MAX_LENGTH, HASHTAGS_MAX } from './constants.js';
+import { COMMENT_MAX_LENGTH, hashtagValidations } from './constants.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const tagsField = document.querySelector('.text__hashtags');
@@ -17,29 +17,6 @@ pristine.addValidator(
   validateComment,
   `Не более ${COMMENT_MAX_LENGTH} символов`
 );
-
-const hashtagValidations = {
-  startsWithHash: {
-    test: (tag) => tag.startsWith('#'),
-    errorMessage: 'Хэштег должен начинаться с символа #'
-  },
-  validCharacters: {
-    test: (tag) => /^#[a-zа-яё0-9]{1,19}$/i.test(tag),
-    errorMessage: 'Строка после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы и т.д.'
-  },
-  maxLength: {
-    test: (tag) => tag.length <= 20,
-    errorMessage: 'Максимальная длина одного хэш-тега 20 символов, включая решётку'
-  },
-  uniqueTags: {
-    test: (tags) => new Set(tags).size === tags.length,
-    errorMessage: 'Один и тот же хэш-тег не может быть использован дважды'
-  },
-  maxTags: {
-    test: (tags) => tags.length <= HASHTAGS_MAX,
-    errorMessage: 'Нельзя указать больше пяти хэш-тегов'
-  }
-};
 
 Object.keys(hashtagValidations).forEach((key) => {
   pristine.addValidator(
