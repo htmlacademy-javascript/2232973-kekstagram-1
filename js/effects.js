@@ -38,7 +38,6 @@ effectsFieldset.addEventListener('change', (evt) => {
     }
 
     sliderElement.noUiSlider.updateOptions(settings.sliderOptions);
-    sliderElement.noUiSlider.set(settings.sliderOptions.start);
     sliderValueElement.value = settings.sliderOptions.start;
     updateFilter(settings.sliderOptions.start);
   }
