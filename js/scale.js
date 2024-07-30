@@ -13,7 +13,6 @@ const renderScale = () => {
 };
 
 const resetScale = () => {
-  imgPreview.style.filter = 'none';
   currentScale = SCALE_MAX;
   renderScale();
 };
