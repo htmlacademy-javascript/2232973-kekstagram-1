@@ -2,9 +2,9 @@ import {effectSettings} from './constants.js';
 
 const sliderElement = document.querySelector('.effect-level__slider');
 const sliderValueElement = document.querySelector('.effect-level__value');
-const imagePreview = document.querySelector('.img-upload__preview img');
-const effectsFieldset = document.querySelector('.img-upload__effects');
-const effectLevelFieldset = document.querySelector('.img-upload__effect-level');
+const imagePreviewElement = document.querySelector('.img-upload__preview img');
+const effectsFieldsetElement = document.querySelector('.img-upload__effects');
+const effectLevelFieldsetElement = document.querySelector('.img-upload__effect-level');
 
 noUiSlider.create(sliderElement, {
   range: {
@@ -19,22 +19,22 @@ noUiSlider.create(sliderElement, {
 const updateFilter = (value) => {
   const effect = document.querySelector('.effects__radio:checked').value;
   if (effectSettings[effect].filter) {
-    imagePreview.style.filter = effectSettings[effect].filter(value);
+    imagePreviewElement.style.filter = effectSettings[effect].filter(value);
   } else {
-    imagePreview.style.filter = '';
+    imagePreviewElement.style.filter = '';
   }
 };
 
-effectsFieldset.addEventListener('change', (evt) => {
+effectsFieldsetElement.addEventListener('change', (evt) => {
   if (evt.target.classList.contains('effects__radio')) {
     const effect = evt.target.value;
     const settings = effectSettings[effect];
 
-    imagePreview.className = settings.class;
+    imagePreviewElement.className = settings.class;
     if (settings.hidden) {
-      effectLevelFieldset.classList.add('hidden');
+      effectLevelFieldsetElement.classList.add('hidden');
     } else {
-      effectLevelFieldset.classList.remove('hidden');
+      effectLevelFieldsetElement.classList.remove('hidden');
     }
 
     sliderElement.noUiSlider.updateOptions(settings.sliderOptions);
@@ -49,8 +49,8 @@ sliderElement.noUiSlider.on('update', (value) => {
 });
 
 const resetEffects = () => {
-  imagePreview.className = '';
-  effectLevelFieldset.classList.add('hidden');
+  imagePreviewElement.className = '';
+  effectLevelFieldsetElement.classList.add('hidden');
   sliderElement.noUiSlider.updateOptions(effectSettings.none.sliderOptions);
 };
 

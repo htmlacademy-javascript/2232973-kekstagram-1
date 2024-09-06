@@ -6,6 +6,11 @@ const SCALE_MAX = 100;
 const SCALE_STEP = 25;
 const RANDOM_PHOTOS_COUNT = 10;
 const BASE_URL = 'https://28.javascript.htmlacademy.pro/kekstagram';
+const MAX_HASHTAG_LENGTH = 20;
+const SCALE_FACTOR = 0.01;
+const RANDOM_FACTOR = 0.5;
+
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 const hashtagValidations = {
   startsWithHash: {
@@ -17,7 +22,7 @@ const hashtagValidations = {
     errorMessage: 'Строка после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы и т.д.'
   },
   maxLength: {
-    test: (tag) => tag.length <= 20,
+    test: (tag) => tag.length <= MAX_HASHTAG_LENGTH,
     errorMessage: 'Максимальная длина одного хэш-тега 20 символов, включая решётку'
   },
   uniqueTags: {
@@ -99,7 +104,7 @@ const effectSettings = {
   },
 };
 
-const SumbitStatus = {
+const SubmitStatus = {
   STAND_BY: 'Опубликовать',
   SENDING: 'Отправка...',
 };
@@ -120,12 +125,10 @@ const Method = {
   POST: 'POST',
 };
 
-const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
-
 export {
   hashtagValidations,
   effectSettings,
-  SumbitStatus,
+  SubmitStatus,
   Filters,
   Route,
   Method,
@@ -137,5 +140,7 @@ export {
   SCALE_STEP,
   RANDOM_PHOTOS_COUNT,
   FILE_TYPES,
-  BASE_URL
+  BASE_URL,
+  SCALE_FACTOR,
+  RANDOM_FACTOR,
 };

@@ -1,11 +1,11 @@
 import {setEscapeControl, removeEscapeControl} from './escape-control.js';
 
-const successMessage = document.querySelector('#success').content.querySelector('.success');
-const errorMessage = document.querySelector('#error').content.querySelector('.error');
+const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
+const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 
 const templates = {
-  'success': successMessage,
-  'error': errorMessage
+  'success': successMessageTemplate,
+  'error': errorMessageTemplate
 };
 
 const closeMessage = (template) => {

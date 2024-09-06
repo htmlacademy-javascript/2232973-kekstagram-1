@@ -1,14 +1,14 @@
-import { SCALE_MIN, SCALE_MAX, SCALE_STEP } from './constants.js';
+import { SCALE_MIN, SCALE_MAX, SCALE_STEP, SCALE_FACTOR } from './constants.js';
 
-const imgScaleUp = document.querySelector('.scale__control--bigger');
-const imgScaleDown = document.querySelector('.scale__control--smaller');
+const imgScaleUpElement = document.querySelector('.scale__control--bigger');
+const imgScaleDownElement = document.querySelector('.scale__control--smaller');
 const imgScaleValue = document.querySelector('.scale__control--value');
-const imgPreview = document.querySelector('.img-upload__preview img');
+const imgPreviewElement = document.querySelector('.img-upload__preview img');
 
 let currentScale = SCALE_MAX;
 
 const renderScale = () => {
-  imgPreview.style.transform = `scale(${currentScale / 100})`;
+  imgPreviewElement.style.transform = `scale(${currentScale * SCALE_FACTOR})`;
   imgScaleValue.value = `${currentScale}%`;
 };
 
@@ -17,17 +17,17 @@ const resetScale = () => {
   renderScale();
 };
 
-const scaleUp = () => {
+const onScaleUpClick = () => {
   currentScale = currentScale < SCALE_MAX ? currentScale + SCALE_STEP : SCALE_MAX;
   renderScale();
 };
 
-const scaleDown = () => {
+const onScaleDownClick = () => {
   currentScale = currentScale > SCALE_MIN ? currentScale - SCALE_STEP : SCALE_MIN;
   renderScale();
 };
 
-imgScaleUp.addEventListener('click', scaleUp);
-imgScaleDown.addEventListener('click', scaleDown);
+imgScaleUpElement.addEventListener('click', onScaleUpClick);
+imgScaleDownElement.addEventListener('click', onScaleDownClick);
 
 export {resetScale};

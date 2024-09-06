@@ -1,24 +1,25 @@
 import { setEscapeControl, removeEscapeControl } from './escape-control.js';
 import { COMMENTS_TO_RENDER } from './constants.js';
 
-const fullCard = document.querySelector('.big-picture');
-const cardImage = fullCard.querySelector('.big-picture__img img');
-const cardLikes = fullCard.querySelector('.likes-count');
-const cardDescription = fullCard.querySelector('.social__caption');
-const cardCommentsCount = fullCard.querySelector('.comments-count');
-const shownCommentsCount = fullCard.querySelector('.social__comment-count');
-const commentsBlock = document.querySelector('.social__comments');
-const commentItem = commentsBlock.querySelector('.social__comment');
-const commentsShowMore = document.querySelector('.comments-loader');
-const closePhotoButton = document.querySelector('#picture-cancel');
+const fullCardElement = document.querySelector('.big-picture');
+const cardImageElement = fullCardElement.querySelector('.big-picture__img img');
+const cardLikesElement = fullCardElement.querySelector('.likes-count');
+const cardDescriptionElement = fullCardElement.querySelector('.social__caption');
+const cardCommentsCountElement = fullCardElement.querySelector('.comments-count');
+const shownCommentsCountElement = fullCardElement.querySelector('.social__comment-count');
+const commentsBlockElement = document.querySelector('.social__comments');
+const commentItemElement = commentsBlockElement.querySelector('.social__comment');
+const commentsShowMoreElement = document.querySelector('.comments-loader');
+const closePhotoButtonElement = document.querySelector('#picture-cancel');
 
 let commentsShown = 0;
-let commentsArray = [];
+let localComments = [];
 
 const createComment = ({ avatar, message, name }) => {
-  const commentElement = commentItem.cloneNode(true);
-  commentElement.querySelector('.social__picture').src = avatar;
-  commentElement.querySelector('.social__picture').alt = name;
+  const commentElement = commentItemElement.cloneNode(true);
+  const imgElement = commentElement.querySelector('.social__picture');
+  imgElement.src = avatar;
+  imgElement.alt = name;
   commentElement.querySelector('.social__text').textContent = message;
 
   return commentElement;
@@ -27,49 +28,49 @@ const createComment = ({ avatar, message, name }) => {
 const renderComments = () => {
   commentsShown += COMMENTS_TO_RENDER;
 
-  if (commentsShown >= commentsArray.length) {
-    commentsShowMore.classList.add('hidden');
-    commentsShown = commentsArray.length;
+  if (commentsShown >= localComments.length) {
+    commentsShowMoreElement.classList.add('hidden');
+    commentsShown = localComments.length;
   } else {
-    commentsShowMore.classList.remove('hidden');
+    commentsShowMoreElement.classList.remove('hidden');
   }
 
   const commentsListFragment = document.createDocumentFragment();
   for (let i = 0; i < commentsShown; i++) {
-    const commentElement = createComment(commentsArray[i]);
+    const commentElement = createComment(localComments[i]);
     commentsListFragment.append(commentElement);
   }
 
-  commentsBlock.innerHTML = '';
-  commentsBlock.append(commentsListFragment);
-  shownCommentsCount.innerHTML = `${commentsShown} из <span class="comments-count">${commentsArray.length}</span> комментариев`;
+  commentsBlockElement.innerHTML = '';
+  commentsBlockElement.append(commentsListFragment);
+  shownCommentsCountElement.innerHTML = `${commentsShown} из <span class="comments-count">${localComments.length}</span> комментариев`;
 };
 
 const onMoreCommentsClick = () => renderComments();
 
 const closeFullPhoto = () => {
   document.querySelector('body').classList.remove('modal-open');
-  fullCard.classList.add('hidden');
+  fullCardElement.classList.add('hidden');
   commentsShown = 0;
-  commentsShowMore.removeEventListener('click', onMoreCommentsClick);
+  commentsShowMoreElement.removeEventListener('click', onMoreCommentsClick);
 };
 
 const renderFullPhoto = ({ url, likes, comments, description }) => {
 
   document.querySelector('body').classList.add('modal-open');
-  cardImage.src = url;
-  cardLikes.textContent = likes;
-  cardCommentsCount.textContent = comments.length;
-  cardDescription.textContent = description;
-  commentsBlock.innerHTML = '';
-  commentsArray = comments;
+  cardImageElement.src = url;
+  cardLikesElement.textContent = likes;
+  cardCommentsCountElement.textContent = comments.length;
+  cardDescriptionElement.textContent = description;
+  commentsBlockElement.innerHTML = '';
+  localComments = comments;
   setEscapeControl(closeFullPhoto);
   renderComments();
-  commentsShowMore.addEventListener('click', onMoreCommentsClick);
-  fullCard.classList.remove('hidden');
+  commentsShowMoreElement.addEventListener('click', onMoreCommentsClick);
+  fullCardElement.classList.remove('hidden');
 };
 
-closePhotoButton.addEventListener('click', () => {
+closePhotoButtonElement.addEventListener('click', () => {
   closeFullPhoto();
   removeEscapeControl();
 });

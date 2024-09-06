@@ -1,8 +1,8 @@
 import { debounce } from './util.js';
 import { renderGallery } from './gallery.js';
-import { RANDOM_PHOTOS_COUNT, Filters } from './constants.js';
+import { RANDOM_PHOTOS_COUNT, RANDOM_FACTOR, Filters } from './constants.js';
 
-const imgFiltersForm = document.querySelector('.img-filters__form');
+const imgFiltersFormElement = document.querySelector('.img-filters__form');
 
 const pictures = [];
 
@@ -10,7 +10,7 @@ const filteredData = {
   [Filters.DEFAULT]: () => pictures,
   [Filters.RANDOM]: () => pictures
     .slice()
-    .sort(() => 0.5 - Math.random())
+    .sort(() => RANDOM_FACTOR - Math.random())
     .slice(0, RANDOM_PHOTOS_COUNT),
   [Filters.DISCUSSED]: () => pictures
     .slice()
@@ -30,8 +30,8 @@ const setActiveButton = (button) => {
   button.classList.add('img-filters__button--active');
 };
 
-imgFiltersForm.addEventListener('click', debounce(onFilterChange));
-imgFiltersForm.addEventListener('click', ({target}) => {
+imgFiltersFormElement.addEventListener('click', debounce(onFilterChange));
+imgFiltersFormElement.addEventListener('click', ({target}) => {
   if (target.classList.contains('img-filters__button')) {
     setActiveButton(target);
   }

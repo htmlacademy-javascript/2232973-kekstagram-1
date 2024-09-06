@@ -1,10 +1,10 @@
 import { renderFullPhoto } from './fullphoto.js';
 import { renderThumbnails } from './thumbnails.js';
 
-const picturesList = document.querySelector('.pictures');
+const picturesListElement = document.querySelector('.pictures');
 const localPictures = [];
 
-picturesList.addEventListener('click', (evt) => {
+picturesListElement.addEventListener('click', (evt) => {
   const thumbnail = evt.target.closest('.picture');
   if (!thumbnail) {
     return;
@@ -27,7 +27,7 @@ const renderGallery = (pictures) => {
   clearGallery();
   localPictures.length = 0;
   localPictures.push(...pictures.slice());
-  renderThumbnails(pictures, picturesList);
+  renderThumbnails(pictures, picturesListElement);
 };
 
 export {renderGallery};

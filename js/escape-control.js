@@ -1,11 +1,11 @@
 import { isEscapeKey } from './util.js';
 
-const stack = [];
+const controls = [];
 let listener = null;
 
 const removeEscapeControl = () => {
-  stack.length -= 1;
-  if (!stack.length) {
+  controls.length -= 1;
+  if (!controls.length) {
     document.removeEventListener('keydown', onDocumentEscape);
     listener = null;
   }
@@ -15,16 +15,16 @@ const setEscapeControl = (cb, condition = null) => {
   if (!listener) {
     listener = document.addEventListener('keydown', onDocumentEscape);
   }
-  stack.push({cb, condition});
+  controls.push({cb, condition});
 };
 
 function onDocumentEscape(evt) {
   if (isEscapeKey(evt)) {
-    const index = stack.length - 1;
-    if(stack[index].condition && !stack[index].condition()){
+    const index = controls.length - 1;
+    if(controls[index].condition && !controls[index].condition()){
       return;
     }
-    stack[index].cb();
+    controls[index].cb();
     removeEscapeControl();
   }
 }

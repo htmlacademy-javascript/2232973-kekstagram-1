@@ -4,41 +4,41 @@ import { resetScale } from './scale.js';
 import { resetEffects } from './effects.js';
 import { sendData } from './api.js';
 import { showMessage } from './fetch-message.js';
-import { SumbitStatus, FILE_TYPES } from './constants.js';
+import { SubmitStatus, FILE_TYPES } from './constants.js';
 
-const uploadForm = document.querySelector('.img-upload__form');
-const preview = document.querySelector('.img-upload__preview img');
-const fileUpload = document.querySelector('#upload-file');
-const popupUpload = document.querySelector('.img-upload__overlay');
-const closeButton = document.querySelector('#upload-cancel');
-const submitButton = document.querySelector('#upload-submit');
-const effectsPreviews = document.querySelectorAll('.effects__preview');
-const tagsField = document.querySelector('.text__hashtags');
-const photoComment = document.querySelector('.text__description');
+const uploadFormElement = document.querySelector('.img-upload__form');
+const previewElement = document.querySelector('.img-upload__preview img');
+const fileUploadElement = document.querySelector('#upload-file');
+const popupUploadElement = document.querySelector('.img-upload__overlay');
+const closeButtonElement = document.querySelector('#upload-cancel');
+const submitButtonElement = document.querySelector('#upload-submit');
+const effectsPreviewElements = document.querySelectorAll('.effects__preview');
+const tagsFieldElement = document.querySelector('.text__hashtags');
+const photoCommentElement = document.querySelector('.text__description');
 
-const canBeClosed = () => !(document.activeElement === photoComment || document.activeElement === tagsField);
+const canBeClosed = () => !(document.activeElement === photoCommentElement || document.activeElement === tagsFieldElement);
 
 const openForm = () => {
-  popupUpload.classList.remove('hidden');
+  popupUploadElement.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
   setEscapeControl(closeForm, canBeClosed);
 };
 
-fileUpload.addEventListener('change', () => {
+fileUploadElement.addEventListener('change', () => {
   openForm();
-  const file = fileUpload.files[0];
+  const file = fileUploadElement.files[0];
   const fileName = file.name.toLowerCase();
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
   if (matches) {
-    preview.src = URL.createObjectURL(file);
-    effectsPreviews.forEach((item) => {
+    previewElement.src = URL.createObjectURL(file);
+    effectsPreviewElements.forEach((item) => {
       item.style.backgroundImage = `url(${URL.createObjectURL(file)})`;
     });
   }
 });
 
 const resetForm = () => {
-  uploadForm.reset();
+  uploadFormElement.reset();
   resetValidation();
   resetScale();
   resetEffects();
@@ -46,15 +46,15 @@ const resetForm = () => {
 
 resetForm();
 
-closeButton.addEventListener('click', (evt) => {
+closeButtonElement.addEventListener('click', (evt) => {
   evt.preventDefault();
   closeForm();
   removeEscapeControl();
 });
 
 const setSubmitStatus = (isDisabled) => {
-  submitButton.disabled = isDisabled;
-  submitButton.textContent = SumbitStatus[isDisabled ? 'SENDING' : 'STAND_BY'];
+  submitButtonElement.disabled = isDisabled;
+  submitButtonElement.textContent = SubmitStatus[isDisabled ? 'SENDING' : 'STAND_BY'];
 };
 
 const onSuccess = () => {
@@ -71,17 +71,17 @@ const onFinally = () => {
   setSubmitStatus(false);
 };
 
-uploadForm.addEventListener('submit', (evt) => {
+uploadFormElement.addEventListener('submit', (evt) => {
   evt.preventDefault();
   if (isValid()) {
-    const formData = new FormData(uploadForm);
+    const formData = new FormData(uploadFormElement);
     setSubmitStatus(true);
     sendData(formData, onSuccess, onError, onFinally);
   }
 });
 
 function closeForm() {
-  popupUpload.classList.add('hidden');
+  popupUploadElement.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
   resetForm();
 }
